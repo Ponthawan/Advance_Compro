@@ -7,4 +7,5 @@ console.log('Hello, World!');
 //using substitution
 console.log('Hello, %s!', place);
 
+//using a string literal
 console.log(`${message}, ${place}!`);
