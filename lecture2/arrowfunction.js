@@ -5,4 +5,4 @@ const subtract = (a, b) => {
     const result = a - b;
     return result;
 };
-console.log(subtract4, 2);
+console.log(subtract(4, 2));
