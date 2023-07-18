@@ -1,21 +1,14 @@
 
-let values1 = ['Apple', 1, false];
-let values2 = ['Fries', 2, true];
-let values3 = ['Mars', 9, 'Apple'];
+let array1 = ['Apple', 1, false];
+let array2 = ['Fries', 2, true];
+let array3 = ['Mars', 9, 'Apple'];
+
+console.log("Arr1, Arr2:", array1.filter((element ) => array2.includes(element)).join
+(","))
+console.log("Arr1, Arr3:", array1.filter((element) => array3.includes(element)).join
+(","))
+console.log("Arr2, Arr3:", array2.filter((element) => array3.includes(element)).join
+(","))
 
 
-if (values1.some((element) => values2.includes(element) || values3.includes(element))) {
-  if (values2.some((element) => values1.includes(element) || values3.includes(element))) {
-    if (values3.some((element) => values1.includes(element) || values2.includes(element))) {
-      console.log("values1 is similar to values3");
-    } else {
-      console.log("values1 is similar to values2");
-    }
-  } else {
-    console.log("values1 is similar to values3");
-  }
-} else if (values2.some((element) => values1.includes(element) || values3.includes(element))) {
-  console.log("values2 is similar to values3");
-} else {
-  console.log("No arrays are similar.");
-}
+
