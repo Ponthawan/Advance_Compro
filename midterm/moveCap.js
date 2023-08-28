@@ -1,12 +1,19 @@
-function capToFront(s) {
-    var sp = s.split("");
-    var caps = []
-    var lower = []
-    for (var i = 0; i < sp.lenght; i++)
-        {
-            if (sp[i] == sp[i].toUpperCase()){
-                caps.push(sp[i]);
-                
-            }
+function moveCapitalLettersToFront(str) {
+    let capitalLetters = '';
+    let nonCapitalLetters = '';
+
+    for (let char of str) {
+        if (char >= 'A' && char <= 'Z') {
+            capitalLetters += char;
+        } else {
+            nonCapitalLetters += char;
         }
+    }
+
+    return capitalLetters + nonCapitalLetters;
 }
+
+// Test cases
+console.log(moveCapitalLettersToFront('HelloWorld'));    // Output: 'HWelloorld'
+console.log(moveCapitalLettersToFront('AbCdEfG'));       // Output: 'ACEbdfG'
+console.log(moveCapitalLettersToFront('JavaScript'));    // Output: 'JSTScrptavaipt'

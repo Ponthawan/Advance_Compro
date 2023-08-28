@@ -1,42 +1,42 @@
-function secretword(str, wordLength) {
-    const alphabetValues = {};  // Object to store letter values
+// secretWord.js
+function secretWord(word, key) {
+    const alphabetDict = {}
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    alphabet.map((char, index) => alphabetDict[char] = index + 1);
 
-    // Fill alphabet values
-    for (let i = 0; i < 26; i++) {
-        const letter = String.fromCharCode(97 + i);
-        alphabetValues[letter] = i + 1;
-    }
+    const getArithmetic = (s, d, n) => s + ((n - 1) * d);
 
-    let secretWord = '';
+    const center = Math.floor(word.length / 2) - 1;
+    const centerTriplet = [-1, 0, 1].map(num => alphabetDict[word[center + num]]).reduce((a, b) => a + b, 0);
 
-    for (let i = 0; i <= str.length - wordLength * 3; i++) {
-        let sumSeries = true;
-        let prevSum = 0;
+    const firstTriplet =  [-3, -2, -1].map(num => alphabetDict[word[key + num]]).reduce((a, b) => a + b, 0);
+    const difference =  (centerTriplet - firstTriplet) /  (Math.round(key / 2) - 1);
 
-        for (let j = 0; j < wordLength; j++) {
-            const triplet = str.substr(i + j * 3, 3);
-            const sum = alphabetValues[triplet[0]] + alphabetValues[triplet[1]] + alphabetValues[triplet[2]];
+    const charTriplet = [1, 2, 3, 4, 5].map(i => getArithmetic(firstTriplet, difference, i));
 
-            if (j === 0) {
-                prevSum = sum;
-            } else if (sum !== prevSum + 3) {
-                sumSeries = false;
-                break;
+    let charCodeAt = [key - 2];
+    charCodeAt[Math.round(key / 2) - 1] = center;
+
+    charTriplet.map((char, index) => {
+        if ((index === 0) || (index === (Math.round(key / 2) - 1))) return;
+
+        let wordSplit = word.split("");
+        for (let i = 0; i < wordSplit.length; i++) {
+            let sum = 0;
+
+            for (let j = 0; j < 3; j++) {
+                sum += alphabetDict[wordSplit[i + j]];
             }
 
-            prevSum = sum;
+            if (sum === char) {
+                charCodeAt[index] = i + 1;
+                break;
+            }
         }
+    });
 
-        if (sumSeries) {
-            secretWord = str.substr(i + wordLength * 3, wordLength);
-            break;
-        }
-    }
-
-    return secretWord;
+    return charCodeAt.map(char => word[char]).join("");
 }
 
-// Test
-const str = 'sadbpsterdvaefikkgoenqrt';
-const secretWordLength = 5;
-console.log(secretword(str, secretWordLength));  // Output: 'brake'
+console.log(secretWord("sadbpstcrdvaefikkgoenqrt", 5)) // "brake"
+console.log(secretWord("aheiayd", 3)) // "hey"
